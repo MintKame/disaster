@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="utf-8">
+  <title>上传</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <div th:include="common :: commonheader"> </div>
+</head>
+
+<body>
+
+  <div id="LAY_app">
+    <div class="layui-layout layui-layout-admin">
+      <div th:replace="common :: common_header"></div>
+        <!-- 主体内容 -->
+        <div class="layui-body" id="LAY_app_body">
+          <div class="layadmin-tabsbody-item layui-show">
+              <div class="layui-fluid">
+                <div class="layui-row layui-col-space15">
+                  <!-- 灾情码 -->
+                  <div class="layui-col-md6">
+                    <div class="layui-card">
+                      <div class="layui-card-header">灾情码</div>
+
+                      <div class="layui-card-body">
+                        <form th:action="@{/upload/code}" method="post"  lay-filter="component-form-element">
+  <!--                        <form th:action="@{/upload/code}" method="post" class="layui-form" lay-filter="component-form-element">-->
+                          <div class="layui-row layui-col-space10 layui-form-item">
+                            <div class="layui-col-lg6">
+                              <label class="layui-form-label">灾情码：</label>
+                              <div class="layui-input-block">
+                                <input type="text" name="code" lay-verify="required|number" placeholder="" autocomplete="off"
+                                       class="layui-input">
+                              </div>
+                            </div>
+                          </div>
+                          <div class="layui-form-item">
+                            <div class="layui-input-block">
+                              <button type="submit" class="layui-btn" >立即提交</button>
+                              <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                            </div>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+
+                    <!-- 上传文件 -->
+                    <div class="layui-col-md6">
+                      <div class="layui-card">
+                        <div class="layui-card-header">拖拽上传</div>
+                        <div class="layui-card-body">
+                          <div class="layui-upload-drag" id="test-upload-drag">
+                            <i class="layui-icon"></i>
+                            <p>点击或拖拽上传，只可上传txt或excel文件</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+              </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script th:src="@{/layuiadmin/layui/layui.js}"></script>
+  <script>
+    layui.config({
+      base:  '[[@{/layuiadmin/}]]'//静态资源所在路径
+    }).extend({
+      index: 'lib/index' //主入口模块
+    }).use(['index', 'form', 'upload', 'laydate'], function () {
+      var $ = layui.$
+        , element = layui.element
+        , form = layui.form
+        , laydate = layui.laydate
+        , upload = layui.upload;
+
+      form.render(null, 'component-form-element');
+      element.render('breadcrumb', 'breadcrumb');
+
+      form.on('submit(component-form-element)', function (data) {
+        layer.msg(JSON.stringify(data.field));
+        return false;
+      });
+
+      //日期时间选择器
+      laydate.render({
+        elem: '#test-laydate-type-datetime'
+        , type: 'datetime'
+      });
+
+      //拖拽上传
+      upload.render({
+        elem: '#test-upload-drag'
+        , url: '/upload/file'
+        ,exts: 'txt|xlsx|xls' //只允许上传txt，excel
+        , done: function (res) {
+          console.log(res)
+        }
+      });
+    });
+  </script>
+</body>
+</html>

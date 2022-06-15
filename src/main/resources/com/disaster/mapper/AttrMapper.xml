@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.disaster.mapper.AttrMapper">
+    <select id="getAddr" resultType="string">
+        select name from addr where addr_code = #{code}
+    </select>
+
+    <select id="getSourceType" resultType="string">
+        select name from source_type where st_code = #{code}
+    </select>
+
+    <select id="getSourceSubType" resultType="string">
+        select name from source_subtype
+        where st_code = #{sourceType}
+        and ss_code = #{sourceSubtype}
+    </select>
+
+    <select id="getCarrier" resultType="string">
+        select name from carrier where carrier_code = #{code}
+    </select>
+
+    <select id="getDisasterType" resultType="string">
+        select name from disaster_type where dt_code = #{code}
+    </select>
+
+    <select id="getDisasterSubType" resultType="string">
+        select name from disaster_subtype
+        where dt_code = #{disasterType}
+        and ds_code = #{disasterSubtype}
+    </select>
+
+    <select id="getDisasterIndex" resultType="string">
+        select name from disaster_index
+        where dt_code = #{disasterType}
+        and di_code = #{disasterIndex}
+    </select>
+</mapper>
+
