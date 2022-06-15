@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="zh-CN" style="height: 100%" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+</head>
+<body style="height: 100%; margin: 0">
+<div id="container" style="height: 100%"></div>
+
+<script type="text/javascript" src="https://fastly.jsdelivr.net/npm/jquery"></script>
+<script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5.3.3/dist/echarts.min.js"></script>
+<!-- Uncomment this line if you want to dataTool extension
+<script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5.3.3/dist/extension/dataTool.min.js"></script>
+-->
+<!-- Uncomment this line if you want to use gl extension
+<script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts-gl@2/dist/echarts-gl.min.js"></script>
+-->
+<!-- Uncomment this line if you want to echarts-stat extension
+<script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts-stat@latest/dist/ecStat.min.js"></script>
+-->
+<!-- Uncomment this line if you want to use map
+<script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@4.9.0/map/js/china.js"></script>
+<script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@4.9.0/map/js/world.js"></script>
+-->
+<!-- Uncomment these two lines if you want to use bmap extension
+<script type="text/javascript" src="https://api.map.baidu.com/api?v=3.0&ak=YOUR_API_KEY"></script>
+<script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5.3.3/dist/extension/bmap.min.js"></script>
+-->
+
+<script type="text/javascript" th:inline="javascript">
+    var dom = document.getElementById('container');
+    var myChart = echarts.init(dom, null, {
+        renderer: 'canvas',
+        useDirtyRect: false
+    });
+    var app = {};
+    var ROOT_PATH = 'https://fastly.jsdelivr.net/gh/apache/echarts-website@asf-site/examples';
+    var option;
+
+    myChart.showLoading();
+
+    $.get('https://geo.datav.aliyun.com/areas_v3/bound/100000_full.json', function (geoJson) {
+        myChart.hideLoading();
+        echarts.registerMap('China', geoJson);
+        myChart.setOption(
+            (option = {
+                title: {
+                    text: '中国灾情信息统计'
+                },
+                tooltip: {
+                    trigger: 'item',
+                    formatter: '{b}<br/>{c} (次)'
+                },
+                toolbox: {
+                    show: true,
+                    orient: 'vertical',
+                    left: 'right',
+                    top: 'center',
+                    feature: {
+                        dataView: { readOnly: false },
+                        restore: {},
+                        saveAsImage: {}
+                    }
+                },
+                visualMap: {
+                    min: 10,
+                    max: 500,
+                    text: ['High', 'Low'],
+                    realtime: false,
+                    calculable: true,
+                    inRange: {
+                        color: ['lightskyblue', 'yellow', 'orangered']
+                    }
+                },
+                series: [
+                    {
+                        name: '中国灾情信息统计',
+                        type: 'map',
+                        map: 'China',
+                        label: {
+                            show: true
+                        },
+                        data: [
+                            {name: '北京市',value: [[${BJ}]] },
+                            {name: '天津市',value: [[${TJ}]] },
+                            {name: '上海市',value: [[${SH}]] },
+                            {name: '重庆市',value: [[${CQ}]] },
+                            {name: '河北省',value: [[${HB}]] },
+                            {name: '河南省',value: [[${HN}]] },
+                            {name: '云南省',value: [[${YN}]] },
+                            {name: '辽宁省',value: [[${LN}]] },
+                            {name: '黑龙江省',value: [[${HLJ}]] },
+                            {name: '湖南省',value: [[${HN}]] },
+                            {name: '安徽省',value: [[${AH}]] },
+                            {name: '山东省',value: [[${SD}]] },
+                            {name: '新疆维吾尔自治区',value: [[${XJ}]] },
+                            {name: '江苏省',value: [[${JS}]] },
+                            {name: '浙江省',value: [[${ZJ}]] },
+                            {name: '江西省',value: [[${JX}]] },
+                            {name: '湖北省',value: [[${HB}]] },
+                            {name: '广西壮族自治区',value: [[${GX}]] },
+                            {name: '甘肃省',value: [[${GS}]] },
+                            {name: '山西省',value: [[${SX}]] },
+                            {name: '内蒙古自治区',value: [[${NMG}]] },
+                            {name: '陕西省',value: [[${SX}]] },
+                            {name: '吉林省',value: [[${JL}]] },
+                            {name: '福建省',value: [[${FJ}]] },
+                            {name: '贵州省',value: [[${GZ}]] },
+                            {name: '广东省',value: [[${GD}]] },
+                            {name: '青海省',value: [[${QH}]] },
+                            {name: '西藏自治区',value: [[${XZ}]] },
+                            {name: '四川省',value: [[${SC}]] },
+                            {name: '宁夏回族自治区',value: [[${NX}]] },
+                            {name: '海南省',value: [[${HN}]] },
+                            {name: '台湾省',value: [[${TW}]] },
+                            {name: '香港特别行政区',value: [[${HK}]] },
+                            {name: '澳门特别行政区',value: [[${AM}]] }
+                        ]
+                    }
+                ]
+            })
+        );
+    });
+
+    if (option && typeof option === 'object') {
+        myChart.setOption(option);
+    }
+
+    window.addEventListener('resize', myChart.resize);
+</script>
+</body>
+</html>

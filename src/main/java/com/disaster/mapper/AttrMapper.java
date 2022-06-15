@@ -1,6 +1,7 @@
 package com.disaster.mapper;
 
 import com.disaster.bean.Disaster;
+import com.disaster.bean.Province;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -21,4 +22,6 @@ public interface AttrMapper {
     String getDisasterSubType(@Param("disasterType")String disasterType,@Param("disasterSubtype")String disasterSubtype);
 
     String getDisasterIndex(@Param("disasterType")String disasterType,@Param("disasterIndex") String disasterIndex);
+
+    List<Province> getProvinceCnt();
 }

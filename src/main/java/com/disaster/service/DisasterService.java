@@ -1,6 +1,7 @@
 package com.disaster.service;
 
 import com.disaster.bean.Disaster;
+import com.disaster.bean.Province;
 import com.disaster.mapper.AttrMapper;
 import com.disaster.mapper.DisasterMapper;
 import com.disaster.util.TimeUtil;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -21,6 +23,7 @@ public class DisasterService {
     @Autowired
     AttrMapper attrMapper;
 
+    // 解码并添加code
     public void addByCode(String code){
         Disaster disaster = new Disaster();
         // addr
@@ -50,8 +53,13 @@ public class DisasterService {
         disasterMapper.addDisaster(disaster);
     }
 
-
+    // 查询所有灾情信息
     public List<Disaster> getAll() {
         return disasterMapper.getAll();
+    }
+
+    // 获取每个省的灾情信息数量
+    public List<Province> getProvinceCnt() {
+        return attrMapper.getProvinceCnt();
     }
 }
