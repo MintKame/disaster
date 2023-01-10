@@ -37,11 +37,5 @@
         and di_code = #{disasterIndex}
     </select>
 
-    <select id="getProvinceCnt" resultType="com.disaster.bean.Province">
-        SELECT `province` `name`, COUNT(`province`) `cnt`
-        FROM disaster
-        GROUP BY `province`;
-    </select>
-
 </mapper>
 

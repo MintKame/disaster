@@ -60,6 +60,6 @@ public class DisasterService {
 
     // 获取每个省的灾情信息数量
     public List<Province> getProvinceCnt() {
-        return attrMapper.getProvinceCnt();
+        return disasterMapper.getProvinceCnt();
     }
 }

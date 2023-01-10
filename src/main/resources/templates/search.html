@@ -77,11 +77,11 @@
           <div class="layui-row layui-col-space15">
 
 <!--            todo -->
-            <!-- 填写信息 -->
+            <!-- 筛选信息 -->
 <!--            <div class="layui-row layui-col-space15">-->
 <!--              <div class="layui-col-md12">-->
 <!--                <div class="layui-card">-->
-<!--                  <div class="layui-card-header">灾情信息</div>-->
+<!--                  <div class="layui-card-header">筛选灾情信息</div>-->
 <!--                  <div class="layui-card-body">-->
 <!--                    <form th:action="@{/search/msg}"  method="post"  lay-filter="component-form-element">-->
 <!--                      &lt;!&ndash; 地址 &ndash;&gt;-->
@@ -139,34 +139,38 @@
 <!--                      </div>-->
 
 <!--                      <div class="layui-row layui-col-space12 layui-form-item">-->
-<!--                        &lt;!&ndash; 时间 &ndash;&gt;-->
-<!--                        <div class="layui-col-lg4">-->
-<!--                          <div class="layui-inline">-->
-<!--                            <label class="layui-form-label">日期时间</label>-->
-<!--                            <div class="layui-input-inline">-->
-<!--                              <input type="text" class="layui-input" name="gmt_time" id="test-laydate-type-datetime"-->
-<!--                                     placeholder="yyyy-MM-dd HH:mm:ss" lay-verify="required">-->
+<!--                      <div class="layui-row layui-col-space12">-->
+
+<!--                        <div class="layui-form-item">-->
+<!--                          &lt;!&ndash; 时间 &ndash;&gt;-->
+<!--                          <div class="layui-col-lg4">-->
+<!--                            <div class="layui-inline">-->
+<!--                              <label class="layui-form-label">日期时间</label>-->
+<!--                              <div class="layui-input-inline">-->
+<!--                                <input type="text" class="layui-input" name="gmt_time" id="test-laydate-type-datetime"-->
+<!--                                       placeholder="yyyy-MM-dd HH:mm:ss" lay-verify="required">-->
+<!--                              </div>-->
 <!--                            </div>-->
 <!--                          </div>-->
-<!--                        </div>-->
-<!--                        &lt;!&ndash; 来源 &ndash;&gt;-->
-<!--                        <div class="layui-col-lg4">-->
-<!--                          <div class="layui-inline">-->
-<!--                            <label class="layui-form-label">来源</label>-->
-<!--                            <div class="layui-input-inline">-->
-<!--                              <select name="source" lay-verify="required">-->
-<!--                                <option value="">请选择来源</option>-->
-<!--                                <optgroup label="为业务报送数据">-->
-<!--                                  <option value="你工作的第一个城市">你工作的第一个城市</option>-->
-<!--                                </optgroup>-->
-<!--                                <optgroup label="泛在感知数据">-->
-<!--                                  <option value="你的工号">你的工号</option>-->
-<!--                                  <option value="你最喜欢的老师">你最喜欢的老师</option>-->
-<!--                                </optgroup>-->
-<!--                                <optgroup label="其他数据">-->
-<!--                                  <option value="11">其他数据</option>-->
-<!--                                </optgroup>-->
-<!--                              </select>-->
+<!--                          &lt;!&ndash; 来源 &ndash;&gt;-->
+<!--                          <div class="layui-col-lg4">-->
+<!--                            <div class="layui-inline">-->
+<!--                              <label class="layui-form-label">来源</label>-->
+<!--                              <div class="layui-input-inline">-->
+<!--                                <select name="source" lay-verify="required">-->
+<!--                                  <option value="">请选择来源</option>-->
+<!--                                  <optgroup label="为业务报送数据">-->
+<!--                                    <option value="你工作的第一个城市">你工作的第一个城市</option>-->
+<!--                                  </optgroup>-->
+<!--                                  <optgroup label="泛在感知数据">-->
+<!--                                    <option value="你的工号">你的工号</option>-->
+<!--                                    <option value="你最喜欢的老师">你最喜欢的老师</option>-->
+<!--                                  </optgroup>-->
+<!--                                  <optgroup label="其他数据">-->
+<!--                                    <option value="11">其他数据</option>-->
+<!--                                  </optgroup>-->
+<!--                                </select>-->
+<!--                              </div>-->
 <!--                            </div>-->
 <!--                          </div>-->
 <!--                        </div>-->
@@ -240,7 +244,6 @@
 <!--                        </div>-->
 <!--                      </div>-->
 
-<!--                      &lt;!&ndash; todo &ndash;&gt;-->
 <!--                      <div class="layui-form-item">-->
 <!--                        <div class="layui-input-block">-->
 <!--                          <button type="submit" class="layui-btn" >立即提交</button>-->
@@ -253,6 +256,7 @@
 <!--              </div>-->
 <!--            </div>-->
 <!--          </div>-->
+          <!-- todo end-->
 
           <!-- 显示表格 -->
           <div class="layui-row layui-col-space15">
@@ -307,12 +311,11 @@
     base:  '[[@{/layuiadmin/}]]'//静态资源所在路径
   }).extend({
     index: 'lib/index' //主入口模块
-  }).use(['index', 'form', 'upload', 'laydate'], function () {
+  }).use(['index', 'form', 'laydate'], function () {
     var $ = layui.$
             , element = layui.element
             , form = layui.form
-            , laydate = layui.laydate
-            , upload = layui.upload;
+            , laydate = layui.laydate;
 
     form.render(null, 'component-form-element');
     element.render('breadcrumb', 'breadcrumb');
@@ -326,15 +329,6 @@
     laydate.render({
       elem: '#test-laydate-type-datetime'
       , type: 'datetime'
-    });
-
-    //拖拽上传
-    upload.render({
-      elem: '#test-upload-drag'
-      , url: '/upload/'
-      , done: function (res) {
-        console.log(res)
-      }
     });
   });
 </script>

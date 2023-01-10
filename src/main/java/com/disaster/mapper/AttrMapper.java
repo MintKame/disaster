@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
+/** 用于解析code */
 @Mapper
 public interface AttrMapper {
     String getAddr(String code);
@@ -23,5 +24,4 @@ public interface AttrMapper {
 
     String getDisasterIndex(@Param("disasterType")String disasterType,@Param("disasterIndex") String disasterIndex);
 
-    List<Province> getProvinceCnt();
 }

@@ -12,5 +12,11 @@
     <select id="getAll" resultType="com.disaster.bean.Disaster">
         select * from disaster
     </select>
+
+    <select id="getProvinceCnt" resultType="com.disaster.bean.Province">
+        SELECT `province` `name`, COUNT(`province`) `cnt`
+        FROM disaster
+        GROUP BY `province`;
+    </select>
 </mapper>
 
